@@ -1,5 +1,8 @@
 .form-group {
   margin-top: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 300px;
 }
 .content {
   margin-top: 60px;

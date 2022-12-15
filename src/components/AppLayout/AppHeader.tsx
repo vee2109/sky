@@ -10,7 +10,7 @@ export const AppHeader = (props: any) => {
               Sky Albums
             </a>
           </div>
-          <ul className="nav navbar-nav">
+          <div className="mx-auto order-0">
             <div className="form-group has-search">
               <span className="fa fa-search form-control-feedback"></span>
               <input
@@ -19,7 +19,7 @@ export const AppHeader = (props: any) => {
                 placeholder="Search"
               />
             </div>
-          </ul>
+          </div>
         </div>
       </nav>
       <div className="content">{props.children}</div>
