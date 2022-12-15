@@ -7,19 +7,9 @@ export const AppHeader = (props: any) => {
         <div className="container-fluid">
           <div className="navbar-header">
             <a className="navbar-brand" href="/">
-              Sky Albums
+              Sky
             </a>
-          </div>
-          <div className="mx-auto order-0">
-            <div className="form-group has-search">
-              <span className="fa fa-search form-control-feedback"></span>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search"
-              />
-            </div>
-          </div>
+          </div>          
         </div>
       </nav>
       <div className="content">{props.children}</div>
