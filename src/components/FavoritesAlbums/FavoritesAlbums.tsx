@@ -4,6 +4,7 @@ import { RootState } from "../../store/rootReducer";
 import { getAlbums, IEntry } from "../../store/slices/albumsSlice";
 import { AlbumCard } from "../Albums/AlbumCard";
 import AppHeader from "../AppLayout/AppHeader";
+import "../Albums/Card.css";
 export const FavoritesAlbums = () => {
   const [searchValue, setSearchValue] = useState("");
   const albumsStore = useSelector((state: RootState) => state.albums);
@@ -31,7 +32,7 @@ export const FavoritesAlbums = () => {
   }, [albumsStore]);
 
   /**
-   * 
+   *
    * @param userInput string
    * handleSearchValue method call when user search the album from favorite page
    */
@@ -44,29 +45,30 @@ export const FavoritesAlbums = () => {
     );
   };
   return (
-    <>
+    <div className="container-fluid">
       <AppHeader
         handleSearchValue={handleSearchValue}
         searchValue={searchValue}
       />
-
-      <div className="cards">
-        <div className="row">
-          {favAlbumList.length > 0 &&
-            favAlbumList.map((entry, index) => (
-              <AlbumCard
-                key={index}
-                img={entry["im:image"][entry["im:image"].length - 1]?.label}
-                title={entry.title.label}
-                author={entry["im:artist"].label}
-                amount={entry["im:price"].attributes.amount}
-                currency={entry["im:price"].attributes.currency}
-                albumLength={favAlbumList.length}
-                id={entry.id.attributes["im:id"]}
-              />
-            ))}
+      <div className="container">
+        <div className="cards">
+          <div className="row">
+            {favAlbumList.length > 0 &&
+              favAlbumList.map((entry, index) => (
+                <AlbumCard
+                  key={index}
+                  img={entry["im:image"][entry["im:image"].length - 1]?.label}
+                  title={entry.title.label}
+                  author={entry["im:artist"].label}
+                  amount={entry["im:price"].attributes.amount}
+                  currency={entry["im:price"].attributes.currency}
+                  albumLength={favAlbumList.length}
+                  id={entry.id.attributes["im:id"]}
+                />
+              ))}
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };

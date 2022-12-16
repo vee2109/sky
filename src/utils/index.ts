@@ -7,7 +7,7 @@ export const albumsCardClass = (albumLength: number) => {
     case 3:
       return "p0 col-sm-4";
     case 4:
-      return "p0 col-sm-4";
+      return "p0 col-sm-3";
     case 5:
       return "p0 col-sm-3";
     default:
