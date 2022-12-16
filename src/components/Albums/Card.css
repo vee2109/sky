@@ -16,7 +16,7 @@
 }
 .card {
   background: #fff;
-  width: 15em;
+  width: 175px;
   border-radius: 0.6em;
   margin: 0.5em;
   overflow: hidden;
@@ -24,7 +24,7 @@
   box-shadow: 0 13px 27px -5px hsla(240, 30.1%, 28%, 0.25),
     0 8px 16px -8px hsla(0, 0%, 0%, 0.3), 0 -6px 16px -6px hsla(0, 0%, 0%, 0.03);
   transition: all ease 200ms;
-  min-height: 350px;
+  min-height: 300px;
   height: 175px;
   float: left;
 }
@@ -53,21 +53,29 @@
   overflow: hidden !important;
   text-overflow: ellipsis;
   width: 100%;
+  margin-bottom: 0px;
 }
 
 .card p {
   color: #777;
   margin-bottom: 2px;
+  text-align: center;
+  border-top: 1px dotted #9ea4b1;
+  margin-top: 2px;
+}
+.card p span {
+  margin-right: 2px;
 }
 .card button {
   width: 100%;
+  border-radius: 25px;
 }
 .card h5 {
   color: #43b59e;
   font-weight: 600;
   font-size: 0.6em;
   letter-spacing: 0.04em;
-  margin: 1em 0 0 0;
+  margin: 0.5em 0 0.5em 0;
   text-transform: uppercase;
   overflow: hidden !important;
   text-overflow: ellipsis;
@@ -76,6 +84,9 @@
 }
 
 .card-body {
-  padding: 1em;
-  min-height: 130px;
+  min-height: 100px;
 }
+.card-body button {
+  font-size: 11px;
+}
+

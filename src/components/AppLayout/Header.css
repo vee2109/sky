@@ -1,4 +1,7 @@
-body {background-color: #121926 !important}
+body {
+  background-color: #121926 !important;
+  font-family: "Roboto", "HelveticaNeue-Light", sans-serif;
+}
 .nav-color {
   background-color: #2a5ab9 !important;
 }
@@ -9,4 +12,3 @@ body {background-color: #121926 !important}
   margin-left: 20px;
   color: #fff !important;
 }
-
