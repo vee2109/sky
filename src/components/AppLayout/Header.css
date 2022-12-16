@@ -1,24 +1,10 @@
-.form-group {
-  margin-top: 10px;
-  margin-right: auto;
-  margin-left: auto;
-  width: 50%;
+
+.nav-color {
+  background-color: #5397fb !important;
 }
-.search-box {
-  position: fixed;
-  top: 0;
-  text-align: center;
-  z-index: 9999;
-  right: 50px;
-  left: 50px;
+.flex-grow-1 {
+  color: #fff !important;
 }
-.content {
-  margin-top: 60px;
-}
-.navbar-inverse {
-  background-color: #337ab7 !important;
-  border-color: #080808;
-}
-.navbar-inverse .navbar-brand {
+.navbar-nav a {
   color: #fff !important;
 }

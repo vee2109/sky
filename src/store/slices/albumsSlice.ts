@@ -16,7 +16,7 @@ export interface IAlbumsEntryResponse {
 
 export interface IEntry {
   category: { attributes: { "im:id": string; label: string; scheme: string } };
-  id: { label: string };
+  id: { label: string; attributes: { "im:id": string } };
   "im:artist": { label: string };
   "im:image": IImageArray[];
   "im:name": { label: string };
@@ -26,7 +26,7 @@ export interface IEntry {
 }
 
 export interface IImageArray {
-  label: string;  
+  label: string;
 }
 
 export interface IErrorResponse {
