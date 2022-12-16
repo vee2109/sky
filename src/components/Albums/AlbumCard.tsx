@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { albumsCardClass } from "../../utils";
 
 export interface ICardProps {
@@ -12,16 +12,31 @@ export interface ICardProps {
 }
 var favId: string[] = [];
 export const AlbumCard = (props: ICardProps) => {
+  const [isFavorite, setFavorite] = useState<boolean>(false);
+
   const handleFavButton = (id: string) => {
     if (favId.indexOf(id) !== -1) {
       favId = favId.filter(function (item) {
         return item !== id;
       });
+      setFavorite(true);
     } else {
+      setFavorite(false);
       favId.push(id);
     }
     localStorage.setItem("favId", JSON.stringify(favId));
   };
+  
+  const favButtonStateChange = (favId:string) => {
+    let favIds: any = localStorage.getItem("favId");
+    let favArray = JSON.parse(favIds);
+    favArray.indexOf(favId) !== -1 ? setFavorite(false) : setFavorite(true);
+  };
+
+  useEffect(()=>{
+    favButtonStateChange(props.id);
+  },[props.id, isFavorite])
+ 
   return (
     <div className={albumsCardClass(props.albumLength)}>
       <div className="card">
@@ -32,13 +47,13 @@ export const AlbumCard = (props: ICardProps) => {
           <p>
             <span>{props.amount}</span>
             <span>{props.currency}</span>
-          </p>
+          </p>          
           <button
             type="submit"
             onClick={() => handleFavButton(props.id)}
             className="btn btn-primary"
           >
-            Add to favorites
+            { isFavorite ? "Add to favorites" : "Remove from favorites"}
           </button>
         </div>
       </div>
