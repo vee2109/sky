@@ -40,22 +40,23 @@ export const Albums = () => {
         handleSearchValue={handleSearchValue}
         searchValue={searchValue}
       />
-      
-      <div className="cards">
-        <div className="row">
-          {albumList.length > 0 &&
-            albumList.map((entry, index) => (
-              <AlbumCard
-                key={index}
-                img={entry["im:image"][entry["im:image"].length - 1]?.label}
-                title={entry.title.label}
-                author={entry["im:artist"].label}
-                amount={entry["im:price"].attributes.amount}
-                currency={entry["im:price"].attributes.currency}
-                albumLength={albumList.length}
-                id={entry.id.attributes["im:id"]}
-              />
-            ))}
+      <div className="container">
+        <div className="cards">
+          <div className="row">
+            {albumList.length > 0 &&
+              albumList.map((entry, index) => (
+                <AlbumCard
+                  key={index}
+                  img={entry["im:image"][entry["im:image"].length - 1]?.label}
+                  title={entry.title.label}
+                  author={entry["im:artist"].label}
+                  amount={entry["im:price"].attributes.amount}
+                  currency={entry["im:price"].attributes.currency}
+                  albumLength={albumList.length}
+                  id={entry.id.attributes["im:id"]}
+                />
+              ))}
+          </div>
         </div>
       </div>
     </div>
