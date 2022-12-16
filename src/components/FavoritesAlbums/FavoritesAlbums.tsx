@@ -10,12 +10,15 @@ export const FavoritesAlbums = () => {
   const [favAlbumList, setFavAlbumList] = useState<IEntry[]>([]);
   const dispatch = useDispatch();
   /**
-   * first useEffect using to dispatch the getAlbums API
+   * useEffect using to dispatch the getAlbums API if albumsStore is empty
    */
   useEffect(() => {
     albumsStore.albumsResponse.feed.entry.length === 0 && dispatch(getAlbums());
   }, [albumsStore.albumsResponse.feed.entry.length, dispatch]);
 
+  /**
+   * second useEffect using for setting the filtered albums list in the favAlbumList state
+   */
   useEffect(() => {
     var storedNames: any = localStorage.getItem("favId");
     storedNames &&
@@ -26,6 +29,12 @@ export const FavoritesAlbums = () => {
         return setFavAlbumList((prevEvents) => [...prevEvents, ...albums]);
       });
   }, [albumsStore]);
+
+  /**
+   * 
+   * @param userInput string
+   * handleSearchValue method call when user search the album from favorite page
+   */
   const handleSearchValue = (userInput: string) => {
     setSearchValue(userInput);
     setFavAlbumList(

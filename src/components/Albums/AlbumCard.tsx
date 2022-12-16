@@ -15,6 +15,10 @@ export const AlbumCard = (props: ICardProps) => {
   const [isFavorite, setFavorite] = useState<boolean>(false);
 
   const handleFavButton = (id: string) => {
+   /**
+    * when user clicking on Add favorite button checking 
+    * the favId is already exist in array or not based on condition adding and removing the id 
+    */
     if (favId.indexOf(id) !== -1) {
       favId = favId.filter(function (item) {
         return item !== id;
@@ -26,17 +30,23 @@ export const AlbumCard = (props: ICardProps) => {
     }
     localStorage.setItem("favId", JSON.stringify(favId));
   };
-  
-  const favButtonStateChange = (favId:string) => {
+
+  /**
+   *
+   * On page load checking any favorite album are there in local storage
+   * and changing the state to display the fav button text.
+   *
+   */
+  const favButtonStateChange = (favId: string) => {
     let favIds: any = localStorage.getItem("favId");
     let favArray = JSON.parse(favIds);
-    favArray.indexOf(favId) !== -1 ? setFavorite(false) : setFavorite(true);
+    favArray && favArray.indexOf(favId) !== -1 ? setFavorite(false) : setFavorite(true);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     favButtonStateChange(props.id);
-  },[props.id, isFavorite])
- 
+  }, [props.id, isFavorite]);
+
   return (
     <div className={albumsCardClass(props.albumLength)}>
       <div className="card">
@@ -47,13 +57,13 @@ export const AlbumCard = (props: ICardProps) => {
           <p>
             <span>{props.amount}</span>
             <span>{props.currency}</span>
-          </p>          
+          </p>
           <button
             type="submit"
             onClick={() => handleFavButton(props.id)}
             className="btn btn-primary"
           >
-            { isFavorite ? "Add to favorites" : "Remove from favorites"}
+            {isFavorite ? "Add to favorites" : "Remove from favorites"}
           </button>
         </div>
       </div>
