@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/rootReducer";
 import { getAlbums, IEntry } from "../../store/slices/albumsSlice";
 import { AlbumCard } from "./AlbumCard";
-import "./Card.css";
 import { AppHeader } from "../AppLayout/AppHeader";
+import { favButtonStateChange, handleFavButton } from "../../utils";
 
 export const Albums = () => {
   const [albumList, setAlbumList] = useState<IEntry[]>([]);
@@ -54,6 +54,9 @@ export const Albums = () => {
                   currency={entry["im:price"].attributes.currency}
                   albumLength={albumList.length}
                   id={entry.id.attributes["im:id"]}
+                  handleFavButton={() =>handleFavButton(entry.id.attributes["im:id"])}
+                  isFavorite={()=> favButtonStateChange(entry.id.attributes["im:id"])}
+                  isAlbumFavPage={"albums"}
                 />
               ))}
           </div>

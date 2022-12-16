@@ -9,26 +9,15 @@ export interface ICardProps {
   currency: string;
   albumLength: number;
   id: string;
+  handleFavButton: (id: string) => boolean;
+  isFavorite: (id: string) => boolean;
+  isAlbumFavPage: string;
 }
-var favId: string[] = [];
 export const AlbumCard = (props: ICardProps) => {
   const [isFavorite, setFavorite] = useState<boolean>(false);
-
-  const handleFavButton = (id: string) => {
-   /**
-    * when user clicking on Add favorite button checking 
-    * the favId is already exist in array or not based on condition adding and removing the id 
-    */
-    if (favId.indexOf(id) !== -1) {
-      favId = favId.filter(function (item) {
-        return item !== id;
-      });
-      setFavorite(true);
-    } else {
-      setFavorite(false);
-      favId.push(id);
-    }
-    localStorage.setItem("favId", JSON.stringify(favId));
+  // const albumsStore = useSelector((state: RootState) => state.albums);
+  const handleFavoriteButton = (id: string) => {
+    setFavorite(props.handleFavButton(id));
   };
 
   /**
@@ -37,15 +26,9 @@ export const AlbumCard = (props: ICardProps) => {
    * and changing the state to display the fav button text.
    *
    */
-  const favButtonStateChange = (favId: string) => {
-    let favIds: any = localStorage.getItem("favId");
-    let favArray = JSON.parse(favIds);
-    favArray && favArray.indexOf(favId) !== -1 ? setFavorite(false) : setFavorite(true);
-  };
-
   useEffect(() => {
-    favButtonStateChange(props.id);
-  }, [props.id, isFavorite]);
+    setFavorite(props.isFavorite(props.id));
+  }, [props]);
 
   return (
     <div className={albumsCardClass(props.albumLength)}>
@@ -58,13 +41,17 @@ export const AlbumCard = (props: ICardProps) => {
             <span>{props.amount}</span>
             <span>{props.currency}</span>
           </p>
-          <button
-            type="submit"
-            onClick={() => handleFavButton(props.id)}
-            className="btn btn-primary"
-          >
-            {isFavorite ? "Add to favorites" : "Remove from favorites"}
-          </button>
+          {props.isAlbumFavPage !== "favorite" ? (
+            <button
+              type="submit"
+              onClick={() => handleFavoriteButton(props.id)}
+              className="btn btn-primary"
+            >
+              {isFavorite ? "Add to favorites" : "Remove from favorites"}
+            </button>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>

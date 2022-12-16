@@ -5,11 +5,21 @@ import { getAlbums, IEntry } from "../../store/slices/albumsSlice";
 import { AlbumCard } from "../Albums/AlbumCard";
 import AppHeader from "../AppLayout/AppHeader";
 import "../Albums/Card.css";
+import {
+  favButtonStateChange,
+  handleAddOrRemoveFavoritesItem,
+  handleFavButton,
+} from "../../utils";
+
 export const FavoritesAlbums = () => {
   const [searchValue, setSearchValue] = useState("");
   const albumsStore = useSelector((state: RootState) => state.albums);
   const [favAlbumList, setFavAlbumList] = useState<IEntry[]>([]);
+  const [filteredFavAlbumList, setFilteredFavAlbumList] = useState<IEntry[]>(
+    []
+  );
   const dispatch = useDispatch();
+
   /**
    * useEffect using to dispatch the getAlbums API if albumsStore is empty
    */
@@ -21,29 +31,24 @@ export const FavoritesAlbums = () => {
    * second useEffect using for setting the filtered albums list in the favAlbumList state
    */
   useEffect(() => {
-    var storedNames: any = localStorage.getItem("favId");
-    storedNames &&
-      JSON.parse(storedNames).map((favId: string) => {
-        const albums = albumsStore.albumsResponse.feed.entry.filter(
-          (entry) => entry.id.attributes["im:id"] === favId
-        );
-        return setFavAlbumList((prevEvents) => [...prevEvents, ...albums]);
-      });
+    setFavAlbumList((prevEvents) => [
+      ...prevEvents,
+      ...handleAddOrRemoveFavoritesItem(),
+    ]);
   }, [albumsStore]);
 
-  /**
-   *
-   * @param userInput string
-   * handleSearchValue method call when user search the album from favorite page
-   */
+  useEffect(() => {
+    setFilteredFavAlbumList(favAlbumList);
+  }, [favAlbumList]);
+
   const handleSearchValue = (userInput: string) => {
     setSearchValue(userInput);
-    setFavAlbumList(
-      favAlbumList.filter((name) =>
-        name.title.label.toLowerCase().includes(userInput.toLowerCase())
-      )
+    let filteredAlbums: IEntry[] = favAlbumList.filter((name) =>
+      name.title.label.toLowerCase().includes(userInput.toLowerCase())
     );
+    setFilteredFavAlbumList(filteredAlbums);
   };
+  
   return (
     <div className="container-fluid">
       <AppHeader
@@ -53,8 +58,8 @@ export const FavoritesAlbums = () => {
       <div className="container">
         <div className="cards">
           <div className="row">
-            {favAlbumList.length > 0 &&
-              favAlbumList.map((entry, index) => (
+            {filteredFavAlbumList.length > 0 &&
+              filteredFavAlbumList.map((entry, index) => (
                 <AlbumCard
                   key={index}
                   img={entry["im:image"][entry["im:image"].length - 1]?.label}
@@ -62,8 +67,15 @@ export const FavoritesAlbums = () => {
                   author={entry["im:artist"].label}
                   amount={entry["im:price"].attributes.amount}
                   currency={entry["im:price"].attributes.currency}
-                  albumLength={favAlbumList.length}
+                  albumLength={filteredFavAlbumList.length}
                   id={entry.id.attributes["im:id"]}
+                  handleFavButton={() =>
+                    handleFavButton(entry.id.attributes["im:id"])
+                  }
+                  isFavorite={() =>
+                    favButtonStateChange(entry.id.attributes["im:id"])
+                  }
+                  isAlbumFavPage={"favorite"}
                 />
               ))}
           </div>

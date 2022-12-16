@@ -2,6 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import { MemoryRouter as Router } from "react-router-dom";
 import { AlbumCard } from "../../components/Albums/AlbumCard";
+import { favButtonStateChange, handleFavButton } from "../../utils";
 
 describe("AlbumCard", () => {
   test("Should render AlbumCard view component", () => {
@@ -15,7 +16,10 @@ describe("AlbumCard", () => {
           amount={9.99}
           currency={"USD"}
           albumLength={2}
-          id={"123456"}          
+          id={"123456"}   
+          handleFavButton={() =>handleFavButton("12")}  
+          isFavorite={()=> favButtonStateChange("12")}     
+          isAlbumFavPage={"albums"}
         />
       </Router>
     );
