@@ -1,10 +1,12 @@
-
+body {background-color: #121926 !important}
 .nav-color {
-  background-color: #5397fb !important;
+  background-color: #2a5ab9 !important;
 }
 .flex-grow-1 {
   color: #fff !important;
 }
 .navbar-nav a {
+  margin-left: 20px;
   color: #fff !important;
 }
+
