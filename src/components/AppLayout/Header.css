@@ -12,3 +12,10 @@ body {
   margin-left: 20px;
   color: #fff !important;
 }
+.fav-link {
+  margin-right: 10px;
+  border: 2px solid #121926;
+  border-radius: 5px;
+  background-color: #9d08fb;
+  border-color: #bf97d2;
+}
