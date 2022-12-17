@@ -46,14 +46,12 @@ export const AlbumCard = (props: ICardProps) => {
             <span>{props.amount}</span>
             <span>{props.currency}</span>
           </p>
-
           {props.isAlbumFavPage !== "favorite" && (
             <button
               type="submit"
               onClick={() => handleFavoriteButton(props.id)}
-              className={`btn btn-primary ${
-                isFavorite ? "addFavButton" : "favButton"
-              }`}
+              className={`btn btn-primary ${isFavorite ? "addFavButton" : "favButton"
+                }`}
             >
               {isFavorite ? "Add to favorites" : "Remove from favorites"}
             </button>
