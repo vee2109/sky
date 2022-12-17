@@ -1,6 +1,9 @@
 import store from "../store";
 import { IEntry } from "../store/slices/albumsSlice";
-
+var favId: string[] = [];
+export interface IidAttribute {
+ id: { attributes: { "im:id": string } } 
+}
 export const albumsCardClass = (albumLength: number) => {
   switch (albumLength) {
     case 1:
@@ -22,7 +25,7 @@ export const albumsCardClass = (albumLength: number) => {
  * when user clicking on Add favorite button checking
  * the favId is already exist in array or not based on condition adding and removing the id
  */
-var favId: string[] = [];
+
 export const handleFavButton = (id: string) => {
   let favIds: any = localStorage.getItem("favId");
   let favArray = JSON.parse(favIds);
@@ -57,7 +60,8 @@ export const handleAddOrRemoveFavoritesItem = () => {
     localStoreFavArray.map((favId: string) => {
       const album: IEntry[] =
         stateStore.albums.albumsResponse.feed.entry.filter(
-          (entry) => entry.id.attributes["im:id"] === favId
+          (entry:IidAttribute ) =>
+            entry.id.attributes["im:id"] === favId
         );
       return albumData.push(...album);
     });

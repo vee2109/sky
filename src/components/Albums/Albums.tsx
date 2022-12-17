@@ -6,9 +6,12 @@ import { AlbumCard } from "./AlbumCard";
 import { AppHeader } from "../AppLayout/AppHeader";
 import { favButtonStateChange, handleFavButton } from "../../utils";
 
+export interface IEntryTitle {
+  title: { label: string };
+}
 export const Albums = () => {
   const [albumList, setAlbumList] = useState<IEntry[]>([]);
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState<string>("");
   const dispatch = useDispatch();
   const albumsStore = useSelector((state: RootState) => state.albums);
   /**
@@ -29,7 +32,7 @@ export const Albums = () => {
   const handleSearchValue = (userInput: string) => {
     setSearchValue(userInput);
     setAlbumList(
-      albumsStore.albumsResponse.feed.entry.filter((name) =>
+      albumsStore.albumsResponse.feed.entry.filter((name: IEntryTitle) =>
         name.title.label.toLowerCase().includes(userInput.toLowerCase())
       )
     );
@@ -54,8 +57,12 @@ export const Albums = () => {
                   currency={entry["im:price"].attributes.currency}
                   albumLength={albumList.length}
                   id={entry.id.attributes["im:id"]}
-                  handleFavButton={() =>handleFavButton(entry.id.attributes["im:id"])}
-                  isFavorite={()=> favButtonStateChange(entry.id.attributes["im:id"])}
+                  handleFavButton={() =>
+                    handleFavButton(entry.id.attributes["im:id"])
+                  }
+                  isFavorite={() =>
+                    favButtonStateChange(entry.id.attributes["im:id"])
+                  }
                   isAlbumFavPage={"albums"}
                 />
               ))}
