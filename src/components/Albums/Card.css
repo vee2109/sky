@@ -80,6 +80,27 @@
 .card-body {
   min-height: 100px;
 }
-.card-body button {
+.card-body .addFavButton  {
+  background-color: #202747;
+  border-color: #fcfcff;
   font-size: 11px;
+}
+.card-body .favButton {
+  background-color: #7e2bc4;
+  border-color: #bf97d2;
+  font-size: 11px;
+}
+.card-body .addFavButton:hover {
+  background-color: #31428d;
+}
+.card-body .favButton:hover {
+  background-color: #9d08fb;
+  border-color: #bf97d2;
+}
+.card-body .addFavButton:active {
+  background-color: #31428d !important;
+}
+.card-body .favButton:active {
+  background-color: #9d08fb !important;
+  border-color: #bf97d2;
 }
