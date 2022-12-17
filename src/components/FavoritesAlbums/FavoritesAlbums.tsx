@@ -60,7 +60,8 @@ export const FavoritesAlbums = () => {
                   amount={entry["im:price"].attributes.amount}
                   currency={entry["im:price"].attributes.currency}
                   albumLength={filteredFavAlbumList.length}
-                  id={entry.id.attributes["im:id"]}
+                  id={entry.id.attributes["im:id"]}  
+                  link={entry.link.attributes.href}                
                   handleFavButton={() =>
                     handleFavButton(entry.id.attributes["im:id"])
                   }

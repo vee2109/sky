@@ -32,13 +32,14 @@ export const albumsCardClass = (albumLength: number) => {
  */
 
 export const handleFavButton = (id: string) => {
+  let currentFavState: boolean = false;
   let favIds: any = localStorage.getItem("favId");
   let favArray = JSON.parse(favIds);
+  
   if (favId.length === 0 && favArray) {
     favId.push(...favArray);
   }
-  
-  let currentFavState: boolean = false;
+
   if (favId.indexOf(id) !== -1) {
     favId = favId.filter(function (item) {
       return item !== id;

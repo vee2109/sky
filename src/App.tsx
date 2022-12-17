@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Albums } from "./components/Albums/Albums";
 import { FavoritesAlbums } from "./components/FavoritesAlbums/FavoritesAlbums";
 
-
 export const App: React.FC = () => {
   return (
     <BrowserRouter>

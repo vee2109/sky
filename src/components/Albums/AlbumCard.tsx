@@ -9,16 +9,13 @@ export interface ICardProps {
   currency: string;
   albumLength: number;
   id: string;
+  link: string;
   handleFavButton: (id: string) => boolean;
   isFavorite: (id: string) => boolean;
   isAlbumFavPage: string;
 }
 export const AlbumCard = (props: ICardProps) => {
   const [isFavorite, setFavorite] = useState<boolean>(false);
-  // const albumsStore = useSelector((state: RootState) => state.albums);
-  const handleFavoriteButton = (id: string) => {
-    setFavorite(props.handleFavButton(id));
-  };
 
   /**
    *
@@ -30,22 +27,33 @@ export const AlbumCard = (props: ICardProps) => {
     setFavorite(props.isFavorite(props.id));
   }, [props]);
 
+  const handleFavoriteButton = (id: string) => {
+    setFavorite(props.handleFavButton(id));
+  };
+
   return (
     <div className={albumsCardClass(props.albumLength)}>
       <div className="card">
-        <img src={props.img} alt={"img"} />
+        <a target="_blank" rel="noopener noreferrer" href={props.link}>
+          <img src={props.img} alt={props.title} />
+        </a>
         <div className="card-body">
-          <h2 title={props.title}>{props.title}</h2>
+          <a target="_blank" rel="noopener noreferrer" href={props.link}>
+            <h2 title={props.title}>{props.title}</h2>
+          </a>
           <h5 title={props.author}>{props.author}</h5>
           <p>
             <span>{props.amount}</span>
             <span>{props.currency}</span>
           </p>
+
           {props.isAlbumFavPage !== "favorite" ? (
             <button
               type="submit"
               onClick={() => handleFavoriteButton(props.id)}
-              className={`btn btn-primary ${isFavorite ? "addFavButton": "favButton"}`}
+              className={`btn btn-primary ${
+                isFavorite ? "addFavButton" : "favButton"
+              }`}
             >
               {isFavorite ? "Add to favorites" : "Remove from favorites"}
             </button>

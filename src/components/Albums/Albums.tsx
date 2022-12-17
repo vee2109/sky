@@ -38,6 +38,7 @@ export const Albums = () => {
     );
     setAlbumList(searchResult);
   };
+
   return (
     <div className="container-fluid">
       <AppHeader
@@ -58,6 +59,7 @@ export const Albums = () => {
                   currency={entry["im:price"].attributes.currency}
                   albumLength={albumList.length}
                   id={entry.id.attributes["im:id"]}
+                  link={entry.link.attributes.href}                     
                   handleFavButton={() =>
                     handleFavButton(entry.id.attributes["im:id"])
                   }
