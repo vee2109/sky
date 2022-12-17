@@ -1,6 +1,11 @@
-# Getting Started with Create React App
+# Getting Started with Sky Album React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Install Node.js:
+   - Windows: use installer here: https://nodejs.org/en/download/
+   - Mac: use above install link or terminal command `brew install node`
+### `npm install`
+
+Download all the dependency packages with `npm install` command.
 
 ## Available Scripts
 
