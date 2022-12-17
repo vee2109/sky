@@ -11,6 +11,7 @@ import {
   handleFavButton,
   handleSearch,
 } from "../../utils";
+import LoadingSpinner from "../AppLayout/LoadingSpinner/LoadingSpinner";
 
 export const FavoritesAlbums = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -30,7 +31,6 @@ export const FavoritesAlbums = () => {
     setFavAlbumList(handleAddOrRemoveFavoritesItem());
   }, [albumsStore.albumsResponse.feed.entry.length, dispatch]);
 
-
   useEffect(() => {
     setFilteredFavAlbumList(favAlbumList);
   }, [favAlbumList]);
@@ -47,33 +47,37 @@ export const FavoritesAlbums = () => {
         handleSearchValue={handleFavSearchValue}
         searchValue={searchValue}
       />
-      <div className="container">
-        <div className="cards">
-          <div className="row">
-            {filteredFavAlbumList.length > 0 &&
-              filteredFavAlbumList.map((entry, index) => (
-                <AlbumCard
-                  key={index}
-                  img={entry["im:image"][entry["im:image"].length - 1]?.label}
-                  title={entry.title.label}
-                  author={entry["im:artist"].label}
-                  amount={entry["im:price"].attributes.amount}
-                  currency={entry["im:price"].attributes.currency}
-                  albumLength={filteredFavAlbumList.length}
-                  id={entry.id.attributes["im:id"]}  
-                  link={entry.link.attributes.href}                
-                  handleFavButton={() =>
-                    handleFavButton(entry.id.attributes["im:id"])
-                  }
-                  isFavorite={() =>
-                    favButtonStateChange(entry.id.attributes["im:id"])
-                  }
-                  isAlbumFavPage={"favorite"}
-                />
-              ))}
+      {albumsStore.isLoadingAlbum ? (
+        <LoadingSpinner></LoadingSpinner>
+      ) : (
+        <div className="container">
+          <div className="cards">
+            <div className="row">
+              {filteredFavAlbumList.length > 0 &&
+                filteredFavAlbumList.map((entry, index) => (
+                  <AlbumCard
+                    key={index}
+                    img={entry["im:image"][entry["im:image"].length - 1]?.label}
+                    title={entry.title.label}
+                    author={entry["im:artist"].label}
+                    amount={entry["im:price"].attributes.amount}
+                    currency={entry["im:price"].attributes.currency}
+                    albumLength={filteredFavAlbumList.length}
+                    id={entry.id.attributes["im:id"]}
+                    link={entry.link.attributes.href}
+                    handleFavButton={() =>
+                      handleFavButton(entry.id.attributes["im:id"])
+                    }
+                    isFavorite={() =>
+                      favButtonStateChange(entry.id.attributes["im:id"])
+                    }
+                    isAlbumFavPage={"favorite"}
+                  />
+                ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

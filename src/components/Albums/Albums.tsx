@@ -9,6 +9,7 @@ import {
   handleFavButton,
   handleSearch,
 } from "../../utils";
+import LoadingSpinner from "../AppLayout/LoadingSpinner/LoadingSpinner";
 
 export const Albums = () => {
   const [albumList, setAlbumList] = useState<IEntry[]>([]);
@@ -45,33 +46,37 @@ export const Albums = () => {
         handleSearchValue={handleSearchValue}
         searchValue={searchValue}
       />
-      <div className="container">
-        <div className="cards">
-          <div className="row">
-            {albumList.length > 0 &&
-              albumList.map((entry, index) => (
-                <AlbumCard
-                  key={index}
-                  img={entry["im:image"][entry["im:image"].length - 1]?.label}
-                  title={entry.title.label}
-                  author={entry["im:artist"].label}
-                  amount={entry["im:price"].attributes.amount}
-                  currency={entry["im:price"].attributes.currency}
-                  albumLength={albumList.length}
-                  id={entry.id.attributes["im:id"]}
-                  link={entry.link.attributes.href}                     
-                  handleFavButton={() =>
-                    handleFavButton(entry.id.attributes["im:id"])
-                  }
-                  isFavorite={() =>
-                    favButtonStateChange(entry.id.attributes["im:id"])
-                  }
-                  isAlbumFavPage={"albums"}
-                />
-              ))}
+      {albumsStore.isLoadingAlbum ? (
+        <LoadingSpinner></LoadingSpinner>
+      ) : (
+        <div className="container">
+          <div className="cards">
+            <div className="row">
+              {albumList.length > 0 &&
+                albumList.map((entry, index) => (
+                  <AlbumCard
+                    key={index}
+                    img={entry["im:image"][entry["im:image"].length - 1]?.label}
+                    title={entry.title.label}
+                    author={entry["im:artist"].label}
+                    amount={entry["im:price"].attributes.amount}
+                    currency={entry["im:price"].attributes.currency}
+                    albumLength={albumList.length}
+                    id={entry.id.attributes["im:id"]}
+                    link={entry.link.attributes.href}
+                    handleFavButton={() =>
+                      handleFavButton(entry.id.attributes["im:id"])
+                    }
+                    isFavorite={() =>
+                      favButtonStateChange(entry.id.attributes["im:id"])
+                    }
+                    isAlbumFavPage={"albums"}
+                  />
+                ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
