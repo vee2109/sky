@@ -9,6 +9,7 @@ import {
   favButtonStateChange,
   handleAddOrRemoveFavoritesItem,
   handleFavButton,
+  handleSearch,
 } from "../../utils";
 
 export const FavoritesAlbums = () => {
@@ -22,37 +23,28 @@ export const FavoritesAlbums = () => {
 
   /**
    * useEffect using to dispatch the getAlbums API if albumsStore is empty
+   * and setting updated favorite albums from the localStorage
    */
   useEffect(() => {
     albumsStore.albumsResponse.feed.entry.length === 0 && dispatch(getAlbums());
+    setFavAlbumList(handleAddOrRemoveFavoritesItem());
   }, [albumsStore.albumsResponse.feed.entry.length, dispatch]);
 
-  /**
-   * second useEffect using for setting the filtered albums list in the favAlbumList state
-   */
-  useEffect(() => {
-    setFavAlbumList((prevEvents) => [
-      ...prevEvents,
-      ...handleAddOrRemoveFavoritesItem(),
-    ]);
-  }, [albumsStore]);
 
   useEffect(() => {
     setFilteredFavAlbumList(favAlbumList);
   }, [favAlbumList]);
 
-  const handleSearchValue = (userInput: string) => {
+  const handleFavSearchValue = (userInput: string) => {
     setSearchValue(userInput);
-    let filteredAlbums: IEntry[] = favAlbumList.filter((name) =>
-      name.title.label.toLowerCase().includes(userInput.toLowerCase())
-    );
-    setFilteredFavAlbumList(filteredAlbums);
+    let searchResult = handleSearch(favAlbumList, userInput);
+    setFilteredFavAlbumList(searchResult);
   };
-  
+
   return (
     <div className="container-fluid">
       <AppHeader
-        handleSearchValue={handleSearchValue}
+        handleSearchValue={handleFavSearchValue}
         searchValue={searchValue}
       />
       <div className="container">

@@ -2,7 +2,12 @@ import store from "../store";
 import { IEntry } from "../store/slices/albumsSlice";
 var favId: string[] = [];
 export interface IidAttribute {
- id: { attributes: { "im:id": string } } 
+  id: { attributes: { "im:id": string } };
+}
+export interface IEntryTitle {
+  title: { label: string };
+  "im:artist": { label: string };
+  "im:price": { attributes: { amount: number; currency: string } };
 }
 export const albumsCardClass = (albumLength: number) => {
   switch (albumLength) {
@@ -32,6 +37,7 @@ export const handleFavButton = (id: string) => {
   if (favId.length === 0 && favArray) {
     favId.push(...favArray);
   }
+  
   let currentFavState: boolean = false;
   if (favId.indexOf(id) !== -1) {
     favId = favId.filter(function (item) {
@@ -41,6 +47,7 @@ export const handleFavButton = (id: string) => {
   } else {
     favId.push(id);
   }
+
   localStorage.setItem("favId", JSON.stringify(favId));
   return currentFavState;
 };
@@ -60,11 +67,22 @@ export const handleAddOrRemoveFavoritesItem = () => {
     localStoreFavArray.map((favId: string) => {
       const album: IEntry[] =
         stateStore.albums.albumsResponse.feed.entry.filter(
-          (entry:IidAttribute ) =>
-            entry.id.attributes["im:id"] === favId
+          (entry: IidAttribute) => entry.id.attributes["im:id"] === favId
         );
       return albumData.push(...album);
     });
   }
+
   return albumData;
+};
+
+export const handleSearch = (fromSearchEntry: IEntry[], userInput: string) => {
+  let searchResult: IEntry[] = fromSearchEntry.filter(
+    (name: IEntryTitle) =>
+      name.title.label.toLowerCase().includes(userInput.toLowerCase()) ||
+      name["im:artist"].label.toLowerCase().includes(userInput.toLowerCase()) ||
+      name["im:price"].attributes.amount.toString().includes(userInput)
+  );
+
+  return searchResult;
 };

@@ -4,11 +4,12 @@ import { RootState } from "../../store/rootReducer";
 import { getAlbums, IEntry } from "../../store/slices/albumsSlice";
 import { AlbumCard } from "./AlbumCard";
 import { AppHeader } from "../AppLayout/AppHeader";
-import { favButtonStateChange, handleFavButton } from "../../utils";
+import {
+  favButtonStateChange,
+  handleFavButton,
+  handleSearch,
+} from "../../utils";
 
-export interface IEntryTitle {
-  title: { label: string };
-}
 export const Albums = () => {
   const [albumList, setAlbumList] = useState<IEntry[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
@@ -31,11 +32,11 @@ export const Albums = () => {
 
   const handleSearchValue = (userInput: string) => {
     setSearchValue(userInput);
-    setAlbumList(
-      albumsStore.albumsResponse.feed.entry.filter((name: IEntryTitle) =>
-        name.title.label.toLowerCase().includes(userInput.toLowerCase())
-      )
+    let searchResult = handleSearch(
+      albumsStore.albumsResponse.feed.entry,
+      userInput
     );
+    setAlbumList(searchResult);
   };
   return (
     <div className="container-fluid">
