@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import "../Albums/Card.css";
@@ -8,41 +8,52 @@ export interface ISearchProps {
 }
 
 export const AppHeader = (props: ISearchProps) => {
+  const [toggleState, setToggleState] = useState<boolean>(false);
+  const setToggle = () => {
+    setToggleState(!toggleState);
+  };
+
   return (
     <header>
-      <nav className="navbar navbar-expand-lg navbar-light fixed-top nav-color">
-        <div className="container-fluid">
-          <Link className="navbar-brand flex-grow-1" to="/">
-            Sky Albums
-          </Link>
-          <div className="flex-grow-1 d-flex">
-            <input
-              className="form-control mr-sm-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-              value={props.searchValue}
-              onChange={(e) => props.handleSearchValue(e.target.value)}
-            />
-          </div>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div className="navbar-nav ml-auto">
-              <Link className="nav-item nav-link fav-link" to="/favorites">
+      <nav className="navbar navbar-default "></nav>
+      <nav className="navbar navbar-light fixed-top navbar-expand-md bg-faded justify-content-center sky-header">
+        <Link className="navbar-brand d-flex w-50 mr-auto" to="/">
+          Sky Albums
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#collapsingNavbar3"
+          onClick={() => setToggle()}
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div
+          className={
+            (toggleState ? "show " : "") + "navbar-collapse collapse w-100"
+          }
+          id="collapsingNavbar3"
+        >
+          <ul className="navbar-nav w-100 justify-content-center">
+            <li className="nav-item active">
+              <input
+                className="form-control mr-sm-2 navbar-search"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                value={props.searchValue}
+                onChange={(e) => props.handleSearchValue(e.target.value)}
+              />
+            </li>
+          </ul>
+          <ul className="nav navbar-nav ml-auto w-100 justify-content-end">
+            <li className="nav-item">
+              <Link className="nav-link fav-link" to="/favorites">
                 Favorites
               </Link>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </nav>
     </header>

@@ -2,20 +2,20 @@ body {
   background-color: #121926 !important;
   font-family: "Roboto", "HelveticaNeue-Light", sans-serif;
 }
-.nav-color {
+.sky-header {
   background-color: #2a5ab9 !important;
 }
-.flex-grow-1 {
-  color: #fff !important;
+.navbar-search {
+  width: 300px !important;
 }
-.navbar-nav a {
-  margin-left: 20px;
+.show {
+  margin-bottom: 50px;
+}
+.navbar-brand {
   color: #fff !important;
+  margin-left: 10px;
 }
 .fav-link {
   margin-right: 10px;
-  border: 2px solid #121926;
-  border-radius: 5px;
-  background-color: #9d08fb;
-  border-color: #bf97d2;
+  color: #fff !important;
 }
