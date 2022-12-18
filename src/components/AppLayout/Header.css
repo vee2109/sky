@@ -3,7 +3,8 @@ body {
   font-family: "Roboto", "HelveticaNeue-Light", sans-serif;
 }
 .sky-header {
-  background-color: #2a5ab9 !important;
+  background-color: #192d53 !important;
+  padding: 12px !important;
 }
 .navbar-search {
   width: 300px !important;
