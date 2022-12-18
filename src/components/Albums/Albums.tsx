@@ -69,8 +69,7 @@ export const Albums = () => {
                     }
                     isFavorite={() =>
                       favButtonStateChange(entry.id.attributes["im:id"])
-                    }
-                    isAlbumFavPage={"albums"}
+                    }                    
                   />
                 ))}
             </div>

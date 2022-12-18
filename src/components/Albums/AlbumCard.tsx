@@ -12,7 +12,7 @@ export interface ICardProps {
   link: string;
   handleFavButton: (id: string) => boolean;
   isFavorite: (id: string) => boolean;
-  isAlbumFavPage: string;
+  handleFavRemoveButton?: () => void;
 }
 export const AlbumCard = (props: ICardProps) => {
   const [isFavorite, setFavorite] = useState<boolean>(false);
@@ -29,6 +29,7 @@ export const AlbumCard = (props: ICardProps) => {
 
   const handleFavoriteButton = (id: string) => {
     setFavorite(props.handleFavButton(id));
+    props.handleFavRemoveButton && props.handleFavRemoveButton();
   };
 
   return (
@@ -46,16 +47,15 @@ export const AlbumCard = (props: ICardProps) => {
             <span>{props.amount}</span>
             <span>{props.currency}</span>
           </p>
-          {props.isAlbumFavPage !== "favorite" && (
-            <button
-              type="submit"
-              onClick={() => handleFavoriteButton(props.id)}
-              className={`btn btn-primary ${isFavorite ? "addFavButton" : "favButton"
-                }`}
-            >
-              {isFavorite ? "Add to favorites" : "Remove from favorites"}
-            </button>
-          )}
+          <button
+            type="submit"
+            onClick={() => handleFavoriteButton(props.id)}
+            className={`btn btn-primary ${
+              isFavorite ? "addFavButton" : "favButton"
+            }`}
+          >
+            {isFavorite ? "Add to favorites" : "Remove from favorites"}
+          </button>
         </div>
       </div>
     </div>

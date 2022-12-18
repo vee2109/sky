@@ -41,6 +41,10 @@ export const FavoritesAlbums = () => {
     setFilteredFavAlbumList(searchResult);
   };
 
+  const handleFavRemoveButton = () => {
+    setFavAlbumList(handleAddOrRemoveFavoritesItem());
+  };
+
   return (
     <div className="container-fluid">
       <AppHeader
@@ -71,7 +75,7 @@ export const FavoritesAlbums = () => {
                     isFavorite={() =>
                       favButtonStateChange(entry.id.attributes["im:id"])
                     }
-                    isAlbumFavPage={"favorite"}
+                    handleFavRemoveButton={handleFavRemoveButton}
                   />
                 ))}
             </div>
