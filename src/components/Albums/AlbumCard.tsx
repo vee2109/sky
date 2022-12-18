@@ -29,6 +29,8 @@ export const AlbumCard = (props: ICardProps) => {
 
   const handleFavoriteButton = (id: string) => {
     setFavorite(props.handleFavButton(id));
+
+    // below line will work only for Remove favorite card from favorite page
     props.handleFavRemoveButton && props.handleFavRemoveButton();
   };
 

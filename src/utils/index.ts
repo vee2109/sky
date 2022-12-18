@@ -59,7 +59,7 @@ export const favButtonStateChange = (favId: string) => {
   return favArray && favArray.indexOf(favId) !== -1 ? false : true;
 };
 
-export const handleAddOrRemoveFavoritesItem = () => {
+export const handleRemoveFavoritesItem = () => {
   const stateStore = store.getState();
   let localStoredFavItems: any = localStorage.getItem("favId");
   let localStoreFavArray = JSON.parse(localStoredFavItems);

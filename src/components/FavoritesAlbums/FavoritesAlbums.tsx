@@ -7,7 +7,7 @@ import AppHeader from "../AppLayout/AppHeader";
 import "../Albums/Card.css";
 import {
   favButtonStateChange,
-  handleAddOrRemoveFavoritesItem,
+  handleRemoveFavoritesItem,
   handleFavButton,
   handleSearch,
 } from "../../utils";
@@ -28,7 +28,7 @@ export const FavoritesAlbums = () => {
    */
   useEffect(() => {
     albumsStore.albumsResponse.feed.entry.length === 0 && dispatch(getAlbums());
-    setFavAlbumList(handleAddOrRemoveFavoritesItem());
+    setFavAlbumList(handleRemoveFavoritesItem());
   }, [albumsStore.albumsResponse.feed.entry.length, dispatch]);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export const FavoritesAlbums = () => {
   };
 
   const handleFavRemoveButton = () => {
-    setFavAlbumList(handleAddOrRemoveFavoritesItem());
+    setFavAlbumList(handleRemoveFavoritesItem());
   };
 
   return (
