@@ -87,3 +87,58 @@ export const handleSearch = (fromSearchEntry: IEntry[], userInput: string) => {
 
   return searchResult;
 };
+
+/* callback example
+// slice 
+
+export const recentExecutionAction = (type: string) =>
+  createAction(
+    type,
+    (buildingConfig, callBack: (buildingConfig: IBuildingDtIds[]) => void): Payload<IRecentBuildingIdPayload> => {
+      return {
+        payload: {
+          buildingConfig,
+          callBack,
+        },
+      };
+    }
+  );
+
+export const getRecentExecutedBuildings = recentExecutionAction("execute/getRecentExecutedBuildings");
+
+  extraReducers: (builder) => {
+    builder      
+      .addCase(getRecentExecutedBuildings, (state, action) => {
+        state.isMakingRecentExecutionRequest = true;
+      })      
+  },
+
+  /// saga method.
+
+  function* recentExecutedBuildings(action: PayloadAction<IRecentBuildingIdPayload>) {
+  const { buildingConfig, callBack } = action.payload;
+  try {
+    const response: AxiosResponse<IBuildingDtIds[]> = yield apiClient.post(
+      apiEndPoints.getRecentExecutedBuildings,
+      buildingConfig
+    );
+    callBack(response.data);
+    yield put(setRecentExecutedBuildings(response.data));
+  } catch (error) {   
+    yield put(resetRecentExecutedBuildings());
+  }
+}
+
+// component dispatch 
+
+dispatch(
+        getRecentExecutedBuildings(buildingPayload, (response) => {          
+          response.length
+            ? (skippedBuildingPayload = getBuildingPayload().buildingConfig.filter(({ buildingDtId: bid1 }) =>
+                response.some(({ buildingDtId: bid2 }) => bid1 === bid2)
+              ))
+            : dispatch(resetRecentExecutedBuildings());
+                    
+        })
+      );
+      */
